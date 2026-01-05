@@ -31,12 +31,6 @@ To create a production version of your app:
 
 ```sh
 npm run build
-
-
-
-Genial 😄
-Te dejo **un README.md listo para copiar/pegar**, escrito **nivel portfolio profesional**, explicando **qué hiciste, cómo y por qué**. Esto suma muchísimo en entrevistas.
-
 ---
 
 # 📁 Portfolio – Project Management & IT Delivery
