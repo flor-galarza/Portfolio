@@ -1,0 +1,13 @@
+{
+  "title": "IoT Beverage Bottling Control & Monitoring System",
+  "description": "An industrial automation system embedded on a Raspberry Pi Pico 2W that implements real-time control of a beverage bottling production line. Developed in CircuitPython with MQTT for IoT telemetry, it features double-loop speed control, defensive algorithms for stall and fault detection, and a 2D web-based simulator with hardware mockups and fault injection.",
+  "tech": ["CircuitPython", "MQTT", "Raspberry Pi Pico 2W", "JavaScript", "HTML", "CSS"],
+  "repoUrl": "https://github.com/flor-galarza/Lab-Automatizacion-Cinta-Tranportadora-Botellas",
+  "liveUrl": "",
+  "videoUrl": "/projects/P4/Recording 2026-07-22 003559.mp4",
+  "images": [
+    "/projects/P4/portada.png",
+    "/projects/P4/Screenshot 2026-07-22 003621.png"
+  ],
+  "order": 4
+}

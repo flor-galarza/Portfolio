@@ -1,0 +1,11 @@
+{
+  "title": "Portfolio-GC Academic Platform",
+  "description": "A multi-page academic portfolio platform developed with Astro 5 for the 'Gestión Compartida' team. It aggregates the team's identity, learning paths (RPA), integrated final project (TPI), conceptual maps, and educational challenges. Built using a modular component-based architecture with centralized content data for ease of scalability and maintenance.",
+  "tech": ["Astro", "TypeScript", "TailwindCSS", "Vite"],
+  "repoUrl": "",
+  "liveUrl": "https://portfolio-gc-mauve.vercel.app",
+  "images": [
+    "/projects/P6/Screenshot 2026-07-22 005701.png"
+  ],
+  "order": 6
+}

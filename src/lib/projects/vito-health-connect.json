@@ -1,0 +1,20 @@
+{
+  "title": "VITO Health Connect",
+  "description": "A hybrid mobile health and wellness application (React Native + Kotlin) integrating Google Health Connect. Synchronizes real-time biometric metrics (steps, heart rate, sleep, calories) from multiple sources into an intuitive dashboard. Features a Python machine learning pipeline (TensorFlow Lite) for cardiovascular risk prediction.",
+  "tech": ["React Native", "Kotlin", "Supabase", "TypeScript", "TensorFlow Lite", "Health Connect SDK"],
+  "repoUrl": "https://github.com/VITO-org/Vito-App-Android.git",
+  "liveUrl": "",
+  "presentationUrl": "/projects/P2/Presentacion 1er RELEASE VITO (1).pdf",
+  "reportUrl": "/projects/P2/R1-Informe de release.pdf",
+  "images": [
+    "/projects/P2/portada.png",
+    "/projects/P2/R1-Capturas de pantalla/dashboard-principal-completo.jpg",
+    "/projects/P2/R1-Capturas de pantalla/dashboard-principal.jpg",
+    "/projects/P2/R1-Capturas de pantalla/signos-vitales_todos.jpg",
+    "/projects/P2/R1-Capturas de pantalla/signos-vitales_historial-completo.jpg",
+    "/projects/P2/R1-Capturas de pantalla/alertas.jpg",
+    "/projects/P2/R1-Capturas de pantalla/asistente-vittito.jpg"
+  ],
+  "order": 1,
+  "layout": "stacked"
+}

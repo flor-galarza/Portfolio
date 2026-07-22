@@ -1,0 +1,12 @@
+{
+  "title": "Chaco Sculpture Biennial Platform",
+  "description": "A comprehensive full-stack web platform managing events, artists, sculptures, and real-time voting for the Chaco Sculpture Biennial. It implements secure role-based authentication (Admin, Sculptor, Visitor) with complete CRUD operations, an interactive gallery, image optimization, and in-memory caching for low-latency performance.",
+  "tech": ["SvelteKit", "Express", "MySQL", "TailwindCSS", "JWT"],
+  "repoUrl": "https://github.com/flor-galarza/Bienal-UTN-Project",
+  "liveUrl": "https://bienal-utn-project.vercel.app/",
+  "videoUrl": "/projects/P3/Recording 2026-07-22 002918.mp4",
+  "images": [
+    "/projects/P3/Screenshot 2026-07-22 002803.png"
+  ],
+  "order": 3
+}

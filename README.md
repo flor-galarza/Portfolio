@@ -29,7 +29,7 @@ npm run dev -- --open
 
 To create a production version of your app:
 
-```sh
+````sh
 npm run build
 ---
 
@@ -116,7 +116,7 @@ Esto se logra utilizando la **GitHub App oficial de Jira Software** y una conven
 feature/KAN-11-descripcion
 KAN-11: título del PR
 feat(KAN-11): mensaje de commit
-```
+````
 
 ---
 
@@ -137,9 +137,9 @@ Esto asegura que **el tablero refleja el estado real del código**, sin actualiz
 
 ## 🚀 CI/CD
 
-* Validaciones automáticas en Pull Requests
-* Protecciones de rama en `develop` y `main`
-* Solo se permite merge si los checks pasan correctamente
+- Validaciones automáticas en Pull Requests
+- Protecciones de rama en `develop` y `main`
+- Solo se permite merge si los checks pasan correctamente
 
 > Un ítem en **FINALIZADO** implica que el cambio está **integrado y publicado**.
 
@@ -147,20 +147,20 @@ Esto asegura que **el tablero refleja el estado real del código**, sin actualiz
 
 ## 🛠️ Tecnologías y herramientas
 
-* **Frontend:** Svelte / SvelteKit
-* **Gestión:** Jira Software
-* **Control de versiones:** Git & GitHub
-* **Automatización:** Jira Automation
-* **CI/CD:** GitHub Actions
+- **Frontend:** Svelte / SvelteKit
+- **Gestión:** Jira Software
+- **Control de versiones:** Git & GitHub
+- **Automatización:** Jira Automation
+- **CI/CD:** GitHub Actions
 
 ---
 
 ## 🧠 Aprendizajes clave
 
-* Cómo alinear **gestión de proyectos** con **eventos técnicos reales**
-* Evitar burocracia innecesaria manteniendo trazabilidad
-* Diseñar flujos defendibles en entornos profesionales
-* Integrar herramientas como lo hacen equipos reales de TI
+- Cómo alinear **gestión de proyectos** con **eventos técnicos reales**
+- Evitar burocracia innecesaria manteniendo trazabilidad
+- Diseñar flujos defendibles en entornos profesionales
+- Integrar herramientas como lo hacen equipos reales de TI
 
 ---
 
@@ -171,7 +171,6 @@ Este repositorio forma parte de un **portfolio vivo**, que seguirá evolucionand
 El foco está puesto tanto en el **producto** como en el **proceso**.
 
 ---
-
 
 You can preview the production build with `npm run preview`.
 

@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Flor · Intro</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--bg: #060911;
+				--bg-deep: #030509;
+				--ocean-a: #0e2033;
+				--ocean-b: #1b3a5c;
+				--land: #3e7c6e;
+				--land-dark: #2c5a50;
+				--gold: #e8b75c;
+				--gold-soft: rgba(232, 183, 92, 0.35);
+				--ink: #f5f3ee;
+				--ink-dim: #9ba3ae;
+				--display: 'Space Grotesk', sans-serif;
+				--body: 'IBM Plex Sans', sans-serif;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				background: var(--bg);
+				overflow: hidden;
+				font-family: var(--body);
+			}
+			.stage {
+				position: relative;
+				width: 100%;
+				height: 100vh;
+				min-height: 560px;
+				background: radial-gradient(ellipse at 50% 30%, var(--bg-deep) 0%, var(--bg) 70%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			/* ---------- stars ---------- */
+			.stars {
+				position: absolute;
+				inset: 0;
+				overflow: hidden;
+				opacity: 0;
+				animation: starsIn 1.2s ease forwards;
+			}
+			@keyframes starsIn {
+				to {
+					opacity: 1;
+				}
+			}
+			.star {
+				position: absolute;
+				background: #fff;
+				border-radius: 50%;
+				opacity: 0.6;
+				animation: twinkle 3.5s ease-in-out infinite;
+			}
+			@keyframes twinkle {
+				0%,
+				100% {
+					opacity: 0.15;
+				}
+				50% {
+					opacity: 0.8;
+				}
+			}
+
+			/* ---------- skip ---------- */
+			.skip {
+				position: absolute;
+				top: 22px;
+				right: 26px;
+				z-index: 50;
+				font-family: var(--body);
+				font-size: 13px;
+				letter-spacing: 0.03em;
+				color: var(--ink-dim);
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				border-radius: 999px;
+				padding: 7px 16px;
+				cursor: pointer;
+				transition: all 0.25s ease;
+			}
+			.skip:hover {
+				color: var(--ink);
+				border-color: var(--gold-soft);
+			}
+
+			/* ---------- layers share the same stack ---------- */
+			.layer {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+			}
+
+			/* ===== GLOBE ===== */
+			#globeLayer {
+				opacity: 0;
+				transform: scale(0.85);
+				transition:
+					opacity 1s ease,
+					transform 1.4s ease;
+			}
+			body.phase-globe #globeLayer {
+				opacity: 1;
+				transform: scale(1);
+			}
+			body.phase-zoomout #globeLayer {
+				opacity: 0;
+				transform: scale(2.6);
+				transition:
+					opacity 1s ease 0.1s,
+					transform 1.1s cubic-bezier(0.5, 0, 0.75, 0);
+			}
+
+			.globe-wrap {
+				position: relative;
+				width: min(46vh, 300px);
+				height: min(46vh, 300px);
+			}
+			.globe {
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				overflow: hidden;
+				box-shadow:
+					inset -18px -14px 40px rgba(0, 0, 0, 0.55),
+					0 0 60px 6px rgba(27, 58, 92, 0.45);
+				background: linear-gradient(160deg, var(--ocean-b), var(--ocean-a));
+			}
+			.map-strip {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 200%;
+				animation: spin 9s linear infinite;
+			}
+			@keyframes spin {
+				from {
+					transform: translateX(0);
+				}
+				to {
+					transform: translateX(-50%);
+				}
+			}
+			.globe-shade {
+				position: absolute;
+				inset: 0;
+				border-radius: 50%;
+				pointer-events: none;
+				background:
+					radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 45%),
+					radial-gradient(circle at 72% 78%, rgba(0, 0, 0, 0.55), transparent 60%);
+			}
+			.globe-caption {
+				margin-top: 26px;
+				font-family: var(--display);
+				font-weight: 500;
+				font-size: 14px;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--ink-dim);
+				opacity: 0;
+				animation: fadeUp 1s ease 0.8s forwards;
+			}
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			/* ===== ARGENTINA / MAP ===== */
+			#mapLayer {
+				opacity: 0;
+				transform: scale(1.5);
+				pointer-events: none;
+				transition:
+					opacity 0.9s ease,
+					transform 1.3s cubic-bezier(0.2, 0.8, 0.3, 1);
+			}
+			body.phase-zoomout #mapLayer,
+			body.phase-map #mapLayer {
+				opacity: 1;
+				transform: scale(1);
+			}
+			body.phase-map #mapLayer {
+				pointer-events: auto;
+			}
+			body.phase-reveal #mapLayer {
+				opacity: 0;
+				transform: scale(0.8);
+				transition:
+					opacity 0.8s ease,
+					transform 0.9s ease;
+			}
+
+			.ar-svg {
+				width: min(58vh, 300px);
+				filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.55));
+			}
+			.graticule {
+				stroke: rgba(245, 243, 238, 0.12);
+				stroke-width: 1;
+				stroke-dasharray: 3 4;
+			}
+			.pin-group {
+				opacity: 0;
+			}
+			body.phase-map .pin-group {
+				opacity: 1;
+			}
+			.pin {
+				transform-origin: 150px 96px;
+				transform: translateY(-40px) scale(0.4);
+				opacity: 0;
+			}
+			body.phase-map .pin {
+				animation: pinDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+			}
+			@keyframes pinDrop {
+				0% {
+					transform: translateY(-40px) scale(0.4);
+					opacity: 0;
+				}
+				70% {
+					opacity: 1;
+				}
+				100% {
+					transform: translateY(0) scale(1);
+					opacity: 1;
+				}
+			}
+			.ripple {
+				fill: none;
+				stroke: var(--gold);
+				stroke-width: 2;
+				opacity: 0;
+				transform-origin: 150px 96px;
+			}
+			body.phase-map .ripple {
+				animation: ripple 1.8s ease-out 0.6s infinite;
+			}
+			@keyframes ripple {
+				0% {
+					opacity: 0.9;
+					transform: scale(0.3);
+				}
+				100% {
+					opacity: 0;
+					transform: scale(2.6);
+				}
+			}
+			.tag {
+				opacity: 0;
+				transform: translateY(6px) scale(0.9);
+				transform-origin: 150px 55px;
+				transition:
+					opacity 0.45s ease 0.55s,
+					transform 0.45s ease 0.55s;
+			}
+			body.phase-map .tag {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+			.tag-bg {
+				fill: var(--bg-deep);
+				stroke: var(--gold);
+				stroke-width: 1.2;
+			}
+			.tag-text {
+				font-family: var(--display);
+				font-weight: 600;
+				font-size: 15px;
+				fill: var(--ink);
+			}
+			.tag-sub {
+				font-family: var(--body);
+				font-size: 8.5px;
+				letter-spacing: 0.14em;
+				fill: var(--gold);
+				text-transform: uppercase;
+			}
+
+			/* ===== REVEAL ===== */
+			#revealLayer {
+				opacity: 0;
+				transform: translateY(24px);
+				transition:
+					opacity 1s ease,
+					transform 1s ease;
+			}
+			body.phase-reveal #revealLayer {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.figure {
+				width: 150px;
+				height: auto;
+				margin-bottom: 10px;
+				overflow: visible;
+			}
+			.figure .glow {
+				fill: url(#figGlow);
+			}
+			.figure .hair {
+				fill: #16324a;
+			}
+			.figure .skin {
+				fill: #e9cbaa;
+			}
+			.figure .blazer {
+				fill: var(--gold);
+			}
+			.figure .blazer-shade {
+				fill: #c99a47;
+			}
+			.figure .earring {
+				fill: var(--gold);
+			}
+
+			.greeting {
+				font-family: var(--display);
+				font-weight: 600;
+				font-size: clamp(28px, 5vw, 44px);
+				color: var(--ink);
+				text-align: center;
+				letter-spacing: -0.01em;
+				min-height: 1.3em;
+			}
+			.cursor {
+				display: inline-block;
+				width: 2px;
+				background: var(--gold);
+				margin-left: 2px;
+				animation: blink 1s step-start infinite;
+			}
+			@keyframes blink {
+				50% {
+					opacity: 0;
+				}
+			}
+			.role {
+				margin-top: 10px;
+				font-family: var(--body);
+				font-weight: 300;
+				font-size: 15px;
+				color: var(--ink-dim);
+				letter-spacing: 0.02em;
+				opacity: 0;
+				transition: opacity 0.8s ease 0.3s;
+			}
+			body.phase-reveal.typed .role {
+				opacity: 1;
+			}
+
+			.trail {
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				width: 1px;
+				height: 60px;
+				background: linear-gradient(to top, transparent, var(--gold-soft));
+				opacity: 0;
+				transition: opacity 1s ease 0.6s;
+			}
+			body.phase-reveal.typed .trail {
+				opacity: 1;
+			}
+
+			.cta {
+				margin-top: 34px;
+				opacity: 0;
+				transform: translateY(6px);
+				transition:
+					opacity 0.8s ease 0.6s,
+					transform 0.8s ease 0.6s;
+				font-family: var(--body);
+				font-size: 13px;
+				color: var(--ink-dim);
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 6px;
+			}
+			body.phase-reveal.typed .cta {
+				opacity: 1;
+				transform: translateY(0);
+			}
+			.cta .arrow {
+				width: 14px;
+				height: 14px;
+				border-right: 1.5px solid var(--gold);
+				border-bottom: 1.5px solid var(--gold);
+				transform: rotate(45deg);
+				animation: bob 1.6s ease-in-out infinite;
+			}
+			@keyframes bob {
+				0%,
+				100% {
+					transform: rotate(45deg) translate(0, 0);
+				}
+				50% {
+					transform: rotate(45deg) translate(3px, 3px);
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.map-strip,
+				.ripple,
+				.cursor,
+				.cta .arrow,
+				.star {
+					animation: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body class="phase-globe">
+		<div class="stage" id="stage">
+			<div class="stars" id="stars"></div>
+			<button class="skip" id="skipBtn">Saltar intro</button>
+
+			<!-- GLOBE -->
+			<div class="layer" id="globeLayer">
+				<div class="globe-wrap">
+					<div class="globe">
+						<svg class="map-strip" viewBox="0 0 800 400" preserveAspectRatio="none">
+							<g fill="var(--land)">
+								<path
+									d="M40,120 Q70,90 110,105 Q140,95 160,120 Q150,150 110,150 Q70,165 40,140 Z"
+								/>
+								<path d="M180,220 Q210,200 235,220 Q245,260 215,280 Q195,300 180,270 Z" />
+								<path d="M300,80 Q340,60 380,85 Q400,110 370,130 Q330,140 300,115 Z" />
+								<path d="M420,200 Q460,190 500,210 Q510,240 470,255 Q430,250 420,225 Z" />
+								<path d="M560,110 Q600,95 640,120 Q650,150 610,160 Q570,155 560,130 Z" />
+								<path d="M440,120 Q480,105 520,125 Q525,150 490,155 Q450,150 440,130 Z" />
+							</g>
+							<g fill="var(--land)" transform="translate(400,0)">
+								<path
+									d="M40,120 Q70,90 110,105 Q140,95 160,120 Q150,150 110,150 Q70,165 40,140 Z"
+								/>
+								<path d="M180,220 Q210,200 235,220 Q245,260 215,280 Q195,300 180,270 Z" />
+								<path d="M300,80 Q340,60 380,85 Q400,110 370,130 Q330,140 300,115 Z" />
+								<path d="M420,200 Q460,190 500,210 Q510,240 470,255 Q430,250 420,225 Z" />
+								<path d="M560,110 Q600,95 640,120 Q650,150 610,160 Q570,155 560,130 Z" />
+								<path d="M440,120 Q480,105 520,125 Q525,150 490,155 Q450,150 440,130 Z" />
+							</g>
+						</svg>
+						<div class="globe-shade"></div>
+					</div>
+				</div>
+				<div class="globe-caption">Buscando el próximo destino</div>
+			</div>
+
+			<!-- ARGENTINA MAP -->
+			<div class="layer" id="mapLayer">
+				<svg class="ar-svg" viewBox="0 0 240 380">
+					<defs>
+						<linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+							<stop offset="0%" stop-color="#4C9186" />
+							<stop offset="100%" stop-color="#274F47" />
+						</linearGradient>
+					</defs>
+					<line class="graticule" x1="20" y1="90" x2="220" y2="90" />
+					<line class="graticule" x1="20" y1="190" x2="220" y2="190" />
+					<line class="graticule" x1="20" y1="290" x2="220" y2="290" />
+					<line class="graticule" x1="120" y1="10" x2="120" y2="360" />
+					<path
+						fill="url(#landGrad)"
+						stroke="#1E3F38"
+						stroke-width="1.4"
+						d="M118,14 C132,12 146,22 150,38 C158,52 168,66 162,86 C172,104 180,124 170,146 C180,164 174,186 162,200 C170,220 162,244 150,258 C154,278 146,298 134,312 C130,296 126,278 122,262 C112,250 106,232 110,214 C98,200 92,180 100,162 C88,146 84,124 94,106 C82,90 80,68 92,50 C86,36 96,20 118,14 Z"
+					/>
+					<path
+						fill="url(#landGrad)"
+						stroke="#1E3F38"
+						stroke-width="1.2"
+						d="M128,322 C136,320 144,326 142,336 C144,346 136,354 126,350 C118,348 116,336 122,328 C124,324 126,322 128,322 Z"
+					/>
+					<g class="pin-group">
+						<g class="tag">
+							<rect class="tag-bg" x="92" y="34" width="116" height="38" rx="9" />
+							<path class="tag-bg" d="M144,72 L156,72 L150,84 Z" />
+							<text class="tag-text" x="150" y="53" text-anchor="middle">Buenos Aires</text>
+							<text class="tag-sub" x="150" y="65" text-anchor="middle">Argentina</text>
+						</g>
+						<g class="pin">
+							<circle class="ripple" cx="150" cy="96" r="9" />
+							<path
+								d="M150,80 C162,80 171,89 171,100 C171,113 150,132 150,132 C150,132 129,113 129,100 C129,89 138,80 150,80 Z"
+								fill="var(--gold)"
+							/>
+							<circle cx="150" cy="99" r="5.5" fill="var(--bg-deep)" />
+						</g>
+					</g>
+				</svg>
+			</div>
+
+			<!-- REVEAL -->
+			<div class="layer" id="revealLayer">
+				<svg class="figure" viewBox="0 0 200 200">
+					<defs>
+						<radialGradient id="figGlow" cx="50%" cy="45%" r="55%">
+							<stop offset="0%" stop-color="var(--gold)" stop-opacity="0.28" />
+							<stop offset="100%" stop-color="var(--gold)" stop-opacity="0" />
+						</radialGradient>
+					</defs>
+					<circle class="glow" cx="100" cy="100" r="95" />
+
+					<!-- blazer / shoulders -->
+					<path
+						class="blazer"
+						d="M38,178 C40,150 50,132 75,140 C85,150 92,158 100,158 C108,158 115,150 125,140 C150,132 160,150 162,178 L162,200 L38,200 Z"
+					/>
+					<path
+						class="blazer-shade"
+						d="M75,140 C85,150 92,158 100,158 L100,200 L60,200 C58,178 63,155 75,140 Z"
+						opacity="0.55"
+					/>
+
+					<!-- neck -->
+					<rect class="skin" x="90" y="118" width="20" height="30" rx="7" />
+
+					<!-- head -->
+					<ellipse class="skin" cx="100" cy="92" rx="30" ry="34" />
+
+					<!-- hair back -->
+					<path
+						class="hair"
+						d="M68,78 C64,50 78,28 100,27 C122,28 136,50 132,78
+        C145,88 150,118 143,148 C139,166 129,172 124,163
+        C127,136 124,108 118,92 Q100,102 82,92
+        C76,108 73,136 76,163 C71,172 61,166 57,148
+        C50,118 55,88 68,78 Z"
+					/>
+
+					<!-- hair fringe -->
+					<path
+						class="hair"
+						d="M72,68 C78,50 88,40 100,40 C112,40 122,50 128,68
+        C120,58 110,54 100,54 C90,54 80,58 72,68 Z"
+					/>
+
+					<!-- earrings -->
+					<circle class="earring" cx="70" cy="108" r="3" />
+					<circle class="earring" cx="130" cy="108" r="3" />
+				</svg>
+				<div class="greeting" id="greetingText"></div>
+				<div class="role">Ingeniería en Sistemas · Argentina → Alemania</div>
+				<div class="cta"><span>Explorá mi portfolio</span><span class="arrow"></span></div>
+				<div class="trail"></div>
+			</div>
+		</div>
+
+		<script>
+			(function () {
+				const body = document.body;
+				const stars = document.getElementById('stars');
+				const skipBtn = document.getElementById('skipBtn');
+				const greetingEl = document.getElementById('greetingText');
+				const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+				// stars
+				const N = 70;
+				for (let i = 0; i < N; i++) {
+					const s = document.createElement('div');
+					s.className = 'star';
+					const size = Math.random() * 2 + 1;
+					s.style.width = size + 'px';
+					s.style.height = size + 'px';
+					s.style.left = Math.random() * 100 + '%';
+					s.style.top = Math.random() * 100 + '%';
+					s.style.animationDelay = Math.random() * 3 + 's';
+					stars.appendChild(s);
+				}
+
+				let timers = [];
+				function clearTimers() {
+					timers.forEach(clearTimeout);
+					timers = [];
+				}
+
+				const TEXT = "Hi, I'm Flor.\nNice to meet you.";
+				function typeGreeting() {
+					greetingEl.innerHTML = '';
+					let i = 0;
+					const cursor = document.createElement('span');
+					cursor.className = 'cursor';
+					cursor.textContent = '\u00A0';
+					function step() {
+						if (i <= TEXT.length) {
+							greetingEl.innerHTML = TEXT.slice(0, i).replace(/\n/g, '<br/>');
+							greetingEl.appendChild(cursor);
+							i++;
+							timers.push(setTimeout(step, 38));
+						} else {
+							body.classList.add('typed');
+						}
+					}
+					step();
+				}
+
+				function runSequence() {
+					clearTimers();
+					body.className = 'phase-globe';
+					timers.push(
+						setTimeout(() => {
+							body.className = 'phase-zoomout';
+						}, 2800)
+					);
+					timers.push(
+						setTimeout(() => {
+							body.className = 'phase-map';
+						}, 3900)
+					);
+					timers.push(
+						setTimeout(() => {
+							body.className = 'phase-reveal';
+							typeGreeting();
+						}, 6300)
+					);
+				}
+
+				function skipToEnd() {
+					clearTimers();
+					body.className = 'phase-reveal typed';
+					greetingEl.innerHTML = TEXT.replace(/\n/g, '<br/>');
+				}
+
+				skipBtn.addEventListener('click', skipToEnd);
+
+				if (reduced) {
+					skipToEnd();
+				} else {
+					runSequence();
+				}
+			})();
+		</script>
+	</body>
+</html>

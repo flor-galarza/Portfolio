@@ -1,0 +1,8 @@
+{
+	"title": "Project Title",
+	"description": "A brief description of what this project does and its main features.",
+	"tech": ["Technology 1", "Technology 2", "Technology 3"],
+	"repoUrl": "https://github.com/your-username/repo-name",
+	"liveUrl": "https://optional-live-demo-link.com",
+	"order": 4
+}

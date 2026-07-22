@@ -1,0 +1,13 @@
+{
+  "title": "Insurance Analytics & Data Warehouse",
+  "description": "An end-to-end data engineering and analytics solution for an insurance company. Implements a robust ETL pipeline in Python to extract, transform, and load data from multiple sources into a structured warehouse optimized for analytical reporting. Showcases expertise in database modeling, data warehouse management, and Python data pipelines.",
+  "tech": ["Python", "SQL", "ETL", "Machine Learning", "Power BI"],
+  "repoUrl": "https://github.com/IanNunez21/DataWarehouse_Seguros.git",
+  "liveUrl": "",
+  "videoUrl": "/projects/P1/Presentacion - Grupo 7.mp4",
+  "presentationUrl": "/projects/P1/Presentacion - Grupo 7.pptx",
+  "images": [
+    "/projects/P1/portada.png"
+  ],
+  "order": 2
+}

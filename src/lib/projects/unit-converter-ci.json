@@ -1,0 +1,11 @@
+{
+  "title": "Unit Converter & CI/CD Pipeline",
+  "description": "A responsive temperature conversion web application (Celsius ↔ Fahrenheit) built with SvelteKit and TypeScript. It implements a complete CI/CD workflow using GitHub Actions, automated unit testing with Vitest, E2E testing with Playwright, quality gates with ESLint/Prettier, Docker containerization published to GHCR, and Slack notifications integration.",
+  "tech": ["SvelteKit", "TypeScript", "Docker", "GitHub Actions", "Vitest", "Playwright"],
+  "repoUrl": "https://github.com/flor-galarza/utn-conversorUnidades-CI",
+  "liveUrl": "https://utn-conversorunidades-ci-latest.onrender.com",
+  "images": [
+    "/projects/P5/Screenshot 2026-07-22 005327.png"
+  ],
+  "order": 5
+}
